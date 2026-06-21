@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TECRA — Advancing Precision Diagnostics & Genomic Innovation</title>
+  <meta
+    name="description"
+    content="TECRA is a French company specialized in molecular diagnostics, genomics, bioinformatics, and laboratory automation."
+  />
+
+  <!-- Fonts: serif display (Lora) + sans UI (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============================ HEADER ============================ -->
+  <header class="site-header" id="top">
+    <div class="container site-header__inner">
+      <a href="#top" class="logo" aria-label="TECRA home">
+        <span class="logo__word">TECRA</span><span class="logo__mark">&reg;</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button
+          class="nav__toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Open menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav__menu" id="nav-menu">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="applications.html">Applications</a></li>
+          <li class="nav__cta">
+            <a href="#contact" class="btn btn--primary">Contact Us</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================ HERO ============================ -->
+    <section class="hero" id="products">
+      <div class="container hero__inner">
+        <div class="hero__card">
+          <h1 class="hero__title">Optimize your lab workflow</h1>
+          <p class="hero__text">
+            Equip your laboratory with innovative solutions in genomics and
+            molecular diagnostics. From sample preparation to clinical
+            interpretation, TECRA supports laboratories with high-performance,
+            reliable, and scalable technologies.
+          </p>
+          <a href="#contact" class="btn btn--ghost">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ ABOUT ============================ -->
+    <section class="about" id="services">
+      <div class="container about__inner">
+        <!-- Decorative DNA double-helix: drawn and projected in 3D,
+             rotating on its vertical axis (see initHelix in main.js). -->
+        <div class="about__helix" aria-hidden="true">
+          <canvas class="about__helix-canvas"></canvas>
+        </div>
+
+        <div class="about__content">
+          <p class="eyebrow">Made in France</p>
+          <h2 class="about__title">
+            Advancing Precision Diagnostics and
+            <span class="text-accent">Genomic Innovation</span>
+          </h2>
+          <p class="about__text">
+            TECRA is a French company specialized in the creation, distribution,
+            integration, and support of advanced solutions for molecular
+            diagnostics, genomics, bioinformatics, and laboratory automation.
+          </p>
+          <a href="#contact" class="btn btn--outline">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== EXPERTISE ========================== -->
+    <section class="expertise" id="applications">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-head__title">
+            Our expertise for <span class="text-accent">your success</span>
+          </h2>
+          <span class="section-head__rule" aria-hidden="true"></span>
+        </header>
+
+        <ol class="cards">
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z" />
+                <path d="M3 12l9 4.5L21 12" />
+                <path d="M3 16.5 12 21l9-4.5" />
+              </svg>
+            </span>
+            <h3 class="card__title">Workflow automation</h3>
+            <p class="card__text">
+              From sample collection and processing to final report generation,
+              our end-to-end automation solutions optimize laboratory workflows,
+              minimize errors, and maximize operational efficiency.
+            </p>
+            <span class="card__number">01</span>
+          </li>
+
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M5 12a7 7 0 0 1 14 0" />
+                <path d="M2 12a10 10 0 0 1 20 0" />
+              </svg>
+            </span>
+            <h3 class="card__title">Reliable kits for accurate results</h3>
+            <p class="card__text">
+              We offer a comprehensive range of genetic testing kits designed for
+              screening, mutation detection, and precision medicine applications.
+            </p>
+            <span class="card__number">02</span>
+          </li>
+
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+                <rect x="8" y="8" width="8" height="8" rx="2" />
+                <path d="M10.5 10.5h3v3h-3z" />
+              </svg>
+            </span>
+            <h3 class="card__title">Bioinformatics</h3>
+            <p class="card__text">
+              Our bioinformatics team leverages advanced computational techniques
+              and robust analytical pipelines to process and interpret diagnostic
+              data, deriving clinically relevant conclusions.
+            </p>
+            <span class="card__number">03</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================== CONTACT =========================== -->
+    <section class="contact" id="contact">
+      <div class="container contact__inner">
+        <!-- Image / message panel -->
+        <aside class="contact__panel">
+          <div class="contact__panel-content">
+            <h2 class="contact__panel-title">Tell us more about your next project</h2>
+            <p class="contact__panel-text">
+              Interested in a comprehensive genomic workflow solution for oncology
+              research that takes you from sample to discovery?
+            </p>
+          </div>
+        </aside>
+
+        <!-- Form card -->
+        <div class="contact__card">
+          <span class="contact__chip" aria-hidden="true"></span>
+          <h2 class="contact__title">Equip your laboratory</h2>
+          <p class="contact__subtitle">
+            Looking for a genomic solution, a diagnostic kit or automation support?
+            Tell us about your project.
+          </p>
+
+          <form class="form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New contact request from TECRA website" />
+            <input type="hidden" name="_replyto" value="" />
+            <div class="form__row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" minlength="2" placeholder="John Smith" required />
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="structure">Structure</label>
+                <input type="text" id="structure" name="structure" minlength="2" placeholder="GenomicsTech GmbH" required />
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="j.smith@genomicstech.com" required />
+              <span class="field__error" aria-live="polite"></span>
+            </div>
+
+            <div class="field">
+              <label for="category">Requested product / service</label>
+              <select id="category" name="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="automation">Workflow automation</option>
+                <option value="kits">Diagnostic kits</option>
+                <option value="genomics">Genomic solutions</option>
+                <option value="bioinformatics">Bioinformatics</option>
+              </select>
+              <span class="field__error" aria-live="polite"></span>
+            </div>
+
+            <div class="field">
+              <label for="need">Your need</label>
+              <textarea id="need" name="need" rows="3" minlength="10" placeholder="Describe your project or need" required></textarea>
+              <span class="field__error" aria-live="polite"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block">
+              Send my request
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a href="#top" class="logo logo--footer" aria-label="TECRA home">
+          <span class="logo__word">TECRA</span><span class="logo__mark">&reg;</span>
+        </a>
+        <p class="site-footer__desc">
+          French company specializing in molecular diagnostics, genomics, and
+          laboratory automation.
+        </p>
+      </div>
+
+      <div class="site-footer__contact">
+        <h4>Contact</h4>
+        <a href="mailto:support@tecra-france.fr">support@tecra-france.fr</a>
+      </div>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p class="site-footer__copy">&copy; TECRA 2026 All Rights Reserved</p>
+      <ul class="site-footer__links">
+        <li><a href="politique-de-confidentialite.html">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="politique-de-confidentialite.html#cookies">Cookie management</a></li>
+        <li><a href="mentions-legales.html">Legal</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

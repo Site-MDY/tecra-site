@@ -1,0 +1,176 @@
+/* =============================================================
+   TECRA — Secondary pages
+   Styles for legal pages (mentions légales, privacy) and the
+   "work in progress" pages (Products / Services / Applications).
+
+   Relies on the design tokens & shared components defined in
+   styles.css — this file MUST be linked AFTER styles.css.
+   ============================================================= */
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb { padding-block: var(--space-6) 0; }
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.82rem;
+  color: var(--c-muted);
+}
+.breadcrumb a:hover { color: var(--c-primary); }
+.breadcrumb li[aria-current="page"] { color: var(--c-ink); font-weight: 500; }
+.breadcrumb__sep { color: var(--c-border); }
+
+/* ---------- Page header band ---------- */
+.page-head { background: var(--c-bg-alt); }
+.page-head__inner { padding-block: clamp(2.5rem, 6vw, 4rem); max-width: 75ch; }
+.page-head__title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin-bottom: var(--space-4);
+}
+.page-head__lead {
+  font-size: 1.02rem;
+  color: var(--c-text);
+  max-width: 60ch;
+}
+.page-head__meta {
+  margin-top: var(--space-6);
+  font-size: 0.82rem;
+  color: var(--c-muted);
+}
+
+/* ---------- Prose (legal articles) ---------- */
+.prose {
+  max-width: 75ch;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  color: var(--c-text);
+  font-size: 0.98rem;
+}
+.prose > * + * { margin-top: var(--space-4); }
+
+.prose h2 {
+  font-size: 1.3rem;
+  color: var(--c-navy);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--c-border);
+}
+.prose h2:first-of-type { margin-top: var(--space-6); padding-top: 0; border-top: 0; }
+.prose h3 {
+  font-family: var(--ff-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin-top: var(--space-6);
+}
+
+.prose p { line-height: 1.7; }
+.prose strong { color: var(--c-ink); font-weight: 600; }
+.prose a { color: var(--c-primary); text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover { color: var(--c-primary-dark); }
+
+.prose ul,
+.prose ol { margin-top: var(--space-3); padding-left: 1.3rem; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li { margin-top: var(--space-2); line-height: 1.6; }
+.prose li::marker { color: var(--c-accent); }
+
+/* Definition table for the legal-information block */
+.prose .data-table {
+  width: 100%;
+  margin-top: var(--space-4);
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.prose .data-table th,
+.prose .data-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--c-border);
+}
+.prose .data-table th {
+  width: 38%;
+  font-weight: 600;
+  color: var(--c-ink);
+  background: var(--c-bg-alt);
+}
+
+/* Editor note / placeholder callout (remove before going live) */
+.prose .note {
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  background: rgba(38, 71, 201, 0.05);
+  border-left: 3px solid var(--c-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.88rem;
+  color: var(--c-ink);
+}
+.prose .placeholder {
+  padding: 0.05em 0.4em;
+  background: rgba(38, 71, 201, 0.08);
+  border-radius: 4px;
+  font-style: normal;
+  color: var(--c-primary);
+}
+
+/* ---------- Work in progress ---------- */
+.wip {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: clamp(26rem, 60vh, 38rem);
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+.wip__inner { max-width: 46ch; }
+.wip__title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: var(--space-4);
+}
+.wip__text {
+  color: var(--c-text);
+  font-size: 1rem;
+  margin-bottom: var(--space-8);
+}
+.wip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+/* Brand-consistent "in progress" motif: base-pair rungs filling up,
+   echoing the DNA helix on the home page. Calm, ambient, optional. */
+.wip__motif {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  margin-bottom: var(--space-8);
+}
+.wip__motif span {
+  display: block;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--c-accent);
+  opacity: 0.25;
+  animation: wip-pulse 1.6s ease-in-out infinite;
+}
+.wip__motif span:nth-child(1) { height: 14px; animation-delay: 0s; }
+.wip__motif span:nth-child(2) { height: 22px; animation-delay: 0.12s; }
+.wip__motif span:nth-child(3) { height: 30px; animation-delay: 0.24s; }
+.wip__motif span:nth-child(4) { height: 38px; animation-delay: 0.36s; }
+.wip__motif span:nth-child(5) { height: 30px; animation-delay: 0.48s; }
+.wip__motif span:nth-child(6) { height: 22px; animation-delay: 0.60s; }
+.wip__motif span:nth-child(7) { height: 14px; animation-delay: 0.72s; }
+
+@keyframes wip-pulse {
+  0%, 100% { opacity: 0.2; transform: scaleY(0.7); }
+  50%      { opacity: 0.9; transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wip__motif span { animation: none; opacity: 0.6; }
+}

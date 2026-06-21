@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECRA — Aperçu hélice ADN animée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --c-primary:#2647c9; --c-accent:#3a5bc7; --c-navy:#182a55;
+    --c-text:#5b6680; --c-bg:#ffffff;
+    --ff-serif:"Lora",Georgia,serif; --ff-sans:"Inter",system-ui,sans-serif;
+    --space-3:.75rem; --space-4:1rem; --space-6:1.5rem; --radius:10px;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ff-sans);color:var(--c-text);background:var(--c-bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h2{margin:0;font-family:var(--ff-serif);color:var(--c-navy);line-height:1.18;font-weight:600;}
+  p{margin:0;} svg,canvas{display:block;}
+  .text-accent{color:var(--c-accent);}
+  .container{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--space-6);}
+  .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent);margin-bottom:var(--space-3);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:.7rem 1.4rem;font-size:.92rem;font-weight:500;border:1px solid var(--c-primary);border-radius:var(--radius);color:var(--c-primary);background:transparent;cursor:pointer;transition:background .18s,color .18s;}
+  .btn:hover{background:var(--c-primary);color:#fff;}
+
+  .about{position:relative;background:var(--c-bg);overflow:hidden;}
+  .about__inner{position:relative;display:grid;grid-template-columns:1fr;min-height:42rem;align-content:center;padding-block:clamp(3.5rem,8vw,6.5rem);}
+  .about__helix{position:absolute;top:50%;left:50%;width:100vw;height:100%;transform:translate(-50%,-50%);pointer-events:none;z-index:0;}
+  .about__helix-canvas{display:block;width:100%;height:100%;opacity:.9;}
+  .about__content{position:relative;z-index:1;max-width:520px;margin-left:auto;text-align:right;}
+  .about__title{font-size:clamp(1.5rem,3.2vw,2.1rem);margin-bottom:var(--space-4);}
+  .about__text{color:var(--c-text);margin-bottom:var(--space-6);font-size:.95rem;}
+
+  @media (max-width:900px){
+    .about__content{max-width:none;text-align:left;}
+    .about__helix-canvas{opacity:.5;}
+  }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+  <section class="about">
+    <div class="container about__inner">
+      <div class="about__helix" aria-hidden="true">
+        <canvas class="about__helix-canvas"></canvas>
+      </div>
+      <div class="about__content">
+        <p class="eyebrow">Made in France</p>
+        <h2 class="about__title">Advancing Precision Diagnostics and <span class="text-accent">Genomic Innovation</span></h2>
+        <p class="about__text">TECRA is a French company specialized in the creation, distribution, integration, and support of advanced solutions for molecular diagnostics, genomics, bioinformatics, and laboratory automation.</p>
+        <a href="#" class="btn">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+(function(){
+  "use strict";
+  function initHelix(){
+    var wrap=document.querySelector(".about__helix");
+    var canvas=wrap&&wrap.querySelector(".about__helix-canvas");
+    if(!canvas||!canvas.getContext)return;
+    var ctx=canvas.getContext("2d");
+    var TWO_PI=Math.PI*2;
+    var reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var BACK=[96,110,190],FRONT=[165,176,232];
+    var FILAMENTS=16,STEPS=120,LAYERS=26,SPEED=TWO_PI/26,R_SPREAD=0.5,P_SHEAR=1.5;
+    var TILT=Math.tan((-6*Math.PI)/180),RUNGS_PER_TURN=9,RUNG_SUB=6;
+    var W=0,H=0,dpr=1,geom=null,rot=0,rafId=0,visible=true;
+    function lerp(a,b,t){return a+(b-a)*t;}
+    var bbStyle=[],rungStyle=[];
+    for(var b=0;b<LAYERS;b++){
+      var t=LAYERS===1?0.5:b/(LAYERS-1);
+      var r=Math.round(lerp(BACK[0],FRONT[0],t));
+      var g=Math.round(lerp(BACK[1],FRONT[1],t));
+      var bl=Math.round(lerp(BACK[2],FRONT[2],t));
+      bbStyle.push({stroke:"rgba("+r+","+g+","+bl+","+(0.06+0.2*t).toFixed(3)+")",width:0.9+0.8*t});
+      rungStyle.push({stroke:"rgba("+r+","+g+","+bl+","+(0.1+0.28*t).toFixed(3)+")",width:0.9+0.7*t});
+    }
+    function resize(){
+      var rect=wrap.getBoundingClientRect();
+      W=Math.max(1,rect.width);H=Math.max(1,rect.height);
+      dpr=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
+      canvas.style.width=W+"px";canvas.style.height=H+"px";
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap="round";
+      var left=-30,right=W+30;
+      geom={left:left,right:right,span:right-left,cx:W*0.5,cy:H*0.5,radius:Math.min(H,480)*0.34,
+        turns:Math.max(1.8,Math.min(3.2,W/640))};
+    }
+    function point(s,phase,rOff,pOff){
+      var g=geom;
+      var x=g.left+s*g.span;
+      var theta=s*g.turns*TWO_PI+phase+pOff+rot;
+      var r=g.radius*(1+rOff);
+      var y=g.cy+Math.cos(theta)*r+(x-g.cx)*TILT;
+      return{x:x,y:y,z:Math.sin(theta)};
+    }
+    function bucket(z){var b=((z+1)*0.5*(LAYERS-1)+0.5)|0;if(b<0)b=0;else if(b>=LAYERS)b=LAYERS-1;return b;}
+    function draw(){
+      var g=geom;ctx.clearRect(0,0,W,H);
+      var bb=new Array(LAYERS),rg=new Array(LAYERS);
+      for(var i=0;i<LAYERS;i++){bb[i]=new Path2D();rg[i]=new Path2D();}
+      var phases=[0,Math.PI];
+      for(var p=0;p<2;p++){
+        for(var f=0;f<FILAMENTS;f++){
+          var fr=f/(FILAMENTS-1)-0.5;
+          var rOff=fr*R_SPREAD,pOff=fr*P_SHEAR;
+          var prev=point(0,phases[p],rOff,pOff);
+          for(var s=1;s<=STEPS;s++){
+            var cur=point(s/STEPS,phases[p],rOff,pOff);
+            var path=bb[bucket((prev.z+cur.z)*0.5)];
+            path.moveTo(prev.x,prev.y);path.lineTo(cur.x,cur.y);
+            prev=cur;
+          }
+        }
+      }
+      var nr=Math.round(g.turns*RUNGS_PER_TURN);
+      for(var k=0;k<=nr;k++){
+        var ss=k/nr;
+        var a=point(ss,0,0,0),bp=point(ss,Math.PI,0,0);
+        var px=a.x,py=a.y,pz=a.z;
+        for(var j=1;j<=RUNG_SUB;j++){
+          var tt=j/RUNG_SUB;
+          var qx=lerp(a.x,bp.x,tt),qy=lerp(a.y,bp.y,tt),qz=lerp(a.z,bp.z,tt);
+          var rpath=rg[bucket((pz+qz)*0.5)];
+          rpath.moveTo(px,py);rpath.lineTo(qx,qy);
+          px=qx;py=qy;pz=qz;
+        }
+      }
+      for(var b1=0;b1<LAYERS;b1++){ctx.strokeStyle=bbStyle[b1].stroke;ctx.lineWidth=bbStyle[b1].width;ctx.stroke(bb[b1]);}
+      for(var b2=0;b2<LAYERS;b2++){ctx.strokeStyle=rungStyle[b2].stroke;ctx.lineWidth=rungStyle[b2].width;ctx.stroke(rg[b2]);}
+    }
+    var last=0;
+    function frame(now){if(!last)last=now;rot+=((now-last)/1000)*SPEED;last=now;draw();rafId=requestAnimationFrame(frame);}
+    function start(){if(rafId||reduceMotion)return;last=0;rafId=requestAnimationFrame(frame);}
+    function stop(){if(rafId){cancelAnimationFrame(rafId);rafId=0;}}
+    resize();
+    if(reduceMotion){rot=0.6;draw();}else{start();}
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(e){visible=e[0].isIntersecting;if(visible)start();else stop();}).observe(wrap);
+    }
+    document.addEventListener("visibilitychange",function(){if(document.hidden)stop();else if(visible)start();});
+    var rt=0;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){resize();if(reduceMotion)draw();},150);});
+  }
+  initHelix();
+})();
+</script>
+</body>
+</html>
